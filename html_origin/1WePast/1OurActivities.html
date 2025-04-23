@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片展示</title>
+    <link rel="stylesheet" href="../../css/ShowPic.css">
+</head>
+<body>
+    <div class="container">
+        <a href="javascript:history.back()" class="back-btn">← 上一页</a>
+        
+        <h2>微信公众号原版展示</h2>
+        
+        <div class="image-container">
+            <img id="myImage" src="../../resources/images/PastActivities.png" alt="示例图片">
+            <p class="caption">点击图片可放大查看</p>
+        </div>
+        
+        <div id="myModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="img01">
+        </div>
+    </div>
+
+    <script src="../../js/ShowPic.js"></script>
+</body>
+</html>

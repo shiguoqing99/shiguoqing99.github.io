@@ -1,0 +1,136 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.wechat-container {
+    max-width: 640px;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.wechat-header {
+    position: relative;
+    height: 44px;
+    background-color: #1a7bc9;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+}
+
+.home-button {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.home-button::before {
+    content: "←";
+    margin-right: 5px;
+}
+
+.original-button {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-size: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    padding: 2px 8px;
+    transition: background-color 0.2s;
+}
+
+.original-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.article-container {
+    padding: 15px;
+}
+
+.article-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    line-height: 1.4;
+    color: #222;
+}
+
+.article-meta {
+    display: flex;
+    font-size: 13px;
+    color: #8c8c8c;
+    margin-bottom: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.article-author {
+    color: #576b95;
+    margin-right: 10px;
+}
+
+.article-date {
+    margin-left: auto;
+}
+
+.article-content {
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.qrcode-container {
+    text-align: center;
+    margin: 25px 0;
+    padding: 15px;
+    background-color: #f5f9ff;
+    border-radius: 8px;
+    border: 1px solid #e0e9ff;
+}
+
+.qrcode-img {
+    max-width: 200px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+.qrcode-desc {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+}
+
+.highlight {
+    color: #1a7bc9;
+    font-weight: bold;
+}
+
+.emoji {
+    font-size: 1.2em;
+    margin-right: 3px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .article-title {
+        font-size: 20px;
+    }
+    
+    .article-meta {
+        font-size: 12px;
+    }
+    
+    .article-content {
+        font-size: 15px;
+    }
+}

@@ -291,17 +291,6 @@
 				// 视频加载成功，隐藏占位符
 				videoPlaceholder.style.display = 'none';
 			};
-
-			// 设置超时检查，如果5秒后视频仍未加载，显示占位符
-			setTimeout(function () {
-				if (videoIframe.contentDocument && videoIframe.contentDocument.body.innerHTML) {
-					// 视频已加载
-					videoPlaceholder.style.display = 'none';
-				} else {
-					// 视频未加载
-					videoPlaceholder.style.display = 'flex';
-				}
-			}, 5000);
 		});
 	</script>
 </body>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>礼赞·建国70周年”第九届英文达人秀决赛 - ELA 36</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="../../css/style.css">
+	<style>
+		.media-container {
+			width: 100%;
+			margin: 2rem 0;
+			padding: 1.5rem;
+			background-color: var(--primary-light);
+			border-radius: 8px;
+			border: 1px solid var(--border-color);
+			box-shadow: 0 4px 15px var(--shadow-color);
+			text-align: center;
+		}
+
+		.media-title {
+			color: var(--primary-dark);
+			margin-bottom: 1rem;
+			font-size: 1.2rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 0.5rem;
+		}
+
+		.audio-player {
+			width: 100%;
+			max-width: 500px;
+			margin: 0 auto;
+		}
+
+		.video-wrapper {
+			position: relative;
+			width: 100%;
+			max-width: 1015px;
+			margin: 0 auto;
+		}
+
+		.video-ratio {
+			padding-bottom: 56.25%;
+			/* 16:9 Aspect Ratio */
+			position: relative;
+			height: 0;
+			overflow: hidden;
+		}
+
+		.video-ratio iframe {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			border: none;
+			border-radius: 8px;
+		}
+
+		.bilibili-video {
+			max-width: 1000px;
+			height: 600px;
+			margin: 0 auto;
+			border-radius: 8px;
+			overflow: hidden;
+		}
+
+		.bilibili-video iframe {
+			width: 100%;
+			height: 100%;
+			border: none;
+		}
+
+		@media (max-width: 768px) {
+			.bilibili-video {
+				height: 400px;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.bilibili-video {
+				height: 300px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<header>
+			<div class="theme-switch">
+				<button class="theme-switch-button" id="theme-toggle">
+					<i class="fas fa-moon"></i>
+					<span>深色模式</span>
+				</button>
+			</div>
+
+			<h1>礼赞·建国70周年”第九届英文达人秀决赛</h1>
+
+			<div class="nav-links">
+				<a href="../../index.html" class="nav-link">
+					<i class="fas fa-home"></i> 返回首页
+				</a>
+				<a href="0汇总.html" class="nav-link">
+					<i class="fas fa-arrow-left"></i> 返回上一页
+				</a>
+			</div>
+		</header>
+
+		<div class="image-container">
+			<img src="../../自定义菜单/02We现在/03我们的活动/png/2019122407.png" alt="英文达人秀决赛图片">
+		</div>
+
+		<div class="media-container">
+			<div class="media-title">
+				<i class="fas fa-music"></i> 音频附件：今天是你的生日，中国 - 北京市少年宫合唱团
+			</div>
+			<audio class="audio-player" src="../../audio/今天是你的生日，中国.m4a" controls loop>
+				当前浏览器不支持audio
+			</audio>
+		</div>
+
+		<div class="media-container">
+			<div class="media-title">
+				<i class="fas fa-video"></i> 视频附件1：中华人民共和国成立典礼1949.10.01
+			</div>
+			<div class="video-wrapper">
+				<div class="video-ratio">
+					<iframe src='https://player.youku.com/embed/XNDM8MzA5OTMxNg==' allowfullscreen></iframe>
+				</div>
+			</div>
+		</div>
+
+		<div class="media-container">
+			<div class="media-title">
+				<i class="fas fa-video"></i> 视频附件2：今天是你的生日，中国
+			</div>
+			<div class="video-wrapper">
+				<div class="video-ratio">
+					<iframe src="https://v.qq.com/txp/iframe/player.html?vid=u3004t5n6so"
+						allowFullScreen="true"></iframe>
+				</div>
+			</div>
+		</div>
+
+		<div class="media-container">
+			<div class="media-title">
+				<i class="fas fa-video"></i> 视频附件3：选手才艺展示
+			</div>
+			<div class="bilibili-video">
+				<iframe src="//player.bilibili.com/player.html?aid=594937022&bvid=BV1jq4y1v75u&cid=555639573&page=1"
+					scrolling="no" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+			</div>
+		</div>
+	</div>
+
+	<script src="../../js/js.js"></script>
+</body>
+
+</html>

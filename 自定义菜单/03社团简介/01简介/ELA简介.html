@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ELA简介 - ELA 36</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<style>
+		:root {
+			--primary-color: #4caf50;
+			--primary-light: #e8f5e9;
+			--primary-dark: #2e7d32;
+			--text-color: #263238;
+			--bg-color: #f1f8e9;
+			--card-bg: #ffffff;
+			--sidebar-bg: #f1f8e9;
+			--header-bg: #388e3c;
+			--footer-bg: #2e7d32;
+			--accordion-header: #4caf50;
+			--accordion-hover: #388e3c;
+			--border-color: #c8e6c9;
+			--link-color: #2e7d32;
+			--link-hover: #1b5e20;
+			--shadow-color: rgba(76, 175, 80, 0.15);
+			--table-header: #4caf50;
+			--table-even: rgba(76, 175, 80, 0.05);
+			--table-hover: rgba(76, 175, 80, 0.1);
+		}
+
+		.dark-mode {
+			--primary-color: #81c784;
+			--primary-light: #1b5e20;
+			--primary-dark: #a5d6a7;
+			--text-color: #e8f5e9;
+			--bg-color: #1b1b1b;
+			--card-bg: #2e2e2e;
+			--sidebar-bg: #2e2e2e;
+			--header-bg: #2e7d32;
+			--footer-bg: #1b5e20;
+			--accordion-header: #388e3c;
+			--accordion-hover: #4caf50;
+			--border-color: #4caf50;
+			--link-color: #81c784;
+			--link-hover: #a5d6a7;
+			--shadow-color: rgba(0, 0, 0, 0.3);
+			--table-header: #388e3c;
+			--table-even: rgba(56, 142, 60, 0.1);
+			--table-hover: rgba(56, 142, 60, 0.2);
+		}
+
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+			transition: background-color 0.3s, color 0.3s;
+		}
+
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			line-height: 1.6;
+			color: var(--text-color);
+			background-color: var(--bg-color);
+			min-height: 100vh;
+			padding: 1rem;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		a {
+			text-decoration: none;
+			color: var(--link-color);
+			transition: all 0.3s ease;
+			font-weight: 500;
+		}
+
+		a:hover {
+			color: var(--link-hover);
+			text-decoration: underline;
+		}
+
+		.container {
+			width: 100%;
+			max-width: 1200px;
+			background-color: var(--card-bg);
+			border-radius: 8px;
+			box-shadow: 0 10px 30px var(--shadow-color);
+			padding: 2rem;
+			position: relative;
+		}
+
+		header {
+			text-align: center;
+			margin-bottom: 2rem;
+			position: relative;
+		}
+
+		h3 {
+			color: var(--primary-dark);
+			font-size: 2rem;
+			font-weight: 700;
+			margin-bottom: 1.5rem;
+			position: relative;
+			display: inline-block;
+			padding: 0 2rem;
+		}
+
+		h3::after {
+			content: '';
+			position: absolute;
+			bottom: -10px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 60px;
+			height: 3px;
+			background: var(--primary-color);
+			border-radius: 2px;
+		}
+
+		.theme-switch {
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
+
+		.theme-switch-button {
+			background: rgba(76, 175, 80, 0.2);
+			border: none;
+			border-radius: 20px;
+			padding: 8px 15px;
+			color: var(--text-color);
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			font-weight: 500;
+		}
+
+		.theme-switch-button:hover {
+			background: rgba(76, 175, 80, 0.3);
+		}
+
+		.back-link {
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: flex;
+			align-items: center;
+			font-size: 0.9rem;
+			color: var(--link-color);
+		}
+
+		.back-link i {
+			margin-right: 0.3rem;
+		}
+
+		.image-container {
+			width: 100%;
+			text-align: center;
+			margin: 1rem 0;
+			border-radius: 8px;
+			overflow: hidden;
+			box-shadow: 0 4px 15px var(--shadow-color);
+			background-color: var(--primary-light);
+			border: 1px solid var(--border-color);
+			padding: 1rem;
+		}
+
+		.image-container img {
+			max-width: 100%;
+			height: auto;
+			display: block;
+			margin: 0 auto;
+			border-radius: 4px;
+		}
+
+		.image-placeholder {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			color: var(--text-color);
+			background-color: var(--primary-light);
+			padding: 2rem;
+			text-align: center;
+			min-height: 300px;
+		}
+
+		.image-placeholder i {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+			color: var(--primary-color);
+		}
+
+		/* 移动端样式 */
+		@media (max-width: 768px) {
+			.container {
+				padding: 1.5rem;
+			}
+
+			h3 {
+				font-size: 1.6rem;
+			}
+
+			.theme-switch {
+				position: relative;
+				margin-bottom: 1rem;
+				text-align: center;
+			}
+
+			.back-link {
+				position: relative;
+				margin-bottom: 1rem;
+				justify-content: center;
+			}
+
+			header {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<header>
+			<a href="../../../index.html" class="back-link">
+				<i class="fas fa-arrow-left"></i> 返回首页
+			</a>
+
+			<div class="theme-switch">
+				<button class="theme-switch-button" id="theme-toggle">
+					<i class="fas fa-moon"></i>
+					<span>深色模式</span>
+				</button>
+			</div>
+
+			<h3>ELA简介</h3>
+		</header>
+
+		<div class="image-container">
+			<img src="20190824.png" alt="ELA简介图片">
+			<!-- 备用占位内容，如果图片无法加载时显示 -->
+			<div class="image-placeholder" style="display: none;">
+				<i class="fas fa-image"></i>
+				<p>图片加载中...</p>
+				<p>如果图片无法显示，请检查图片路径或<a href="20190824.png" target="_blank">点击这里</a>尝试直接访问</p>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const themeToggle = document.getElementById('theme-toggle');
+			const themeIcon = themeToggle.querySelector('i');
+
+			// 检查本地存储的主题偏好
+			if (localStorage.getItem('theme') === 'dark') {
+				document.body.classList.add('dark-mode');
+				themeIcon.classList.remove('fa-moon');
+				themeIcon.classList.add('fa-sun');
+				themeToggle.querySelector('span').textContent = '浅色模式';
+			}
+
+			// 主题切换功能
+			themeToggle.addEventListener('click', function () {
+				document.body.classList.toggle('dark-mode');
+
+				if (document.body.classList.contains('dark-mode')) {
+					localStorage.setItem('theme', 'dark');
+					themeIcon.classList.remove('fa-moon');
+					themeIcon.classList.add('fa-sun');
+					themeToggle.querySelector('span').textContent = '浅色模式';
+				} else {
+					localStorage.setItem('theme', 'light');
+					themeIcon.classList.remove('fa-sun');
+					themeIcon.classList.add('fa-moon');
+					themeToggle.querySelector('span').textContent = '深色模式';
+				}
+			});
+
+			// 检查图片是否加载成功
+			const image = document.querySelector('img');
+			const imagePlaceholder = document.querySelector('.image-placeholder');
+
+			image.onload = function () {
+				// 图片加载成功，隐藏占位符
+				imagePlaceholder.style.display = 'none';
+			};
+
+			image.onerror = function () {
+				// 图片加载失败，显示占位符
+				imagePlaceholder.style.display = 'flex';
+			};
+
+			// 设置超时检查，如果3秒后图片仍未加载，显示占位符
+			setTimeout(function () {
+				if (image.complete && image.naturalHeight !== 0) {
+					// 图片已加载
+					imagePlaceholder.style.display = 'none';
+				} else {
+					// 图片未加载
+					imagePlaceholder.style.display = 'flex';
+				}
+			}, 3000);
+		});
+	</script>
+</body>
+
+</html>

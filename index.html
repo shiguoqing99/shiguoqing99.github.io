@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>第36届大学生英语爱好者协会</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			transition: background-color 0.3s, color 0.3s;
+		}
+
+		:root {
+			--primary-color: #4caf50;
+			--primary-light: #e8f5e9;
+			--primary-dark: #2e7d32;
+			--text-color: #263238;
+			--bg-color: #f1f8e9;
+			--card-bg: #ffffff;
+			--sidebar-bg: #f1f8e9;
+			--header-bg: #388e3c;
+			--footer-bg: #2e7d32;
+			--accordion-header: #4caf50;
+			--accordion-hover: #388e3c;
+			--border-color: #c8e6c9;
+			--link-color: #2e7d32;
+			--link-hover: #1b5e20;
+			--shadow-color: rgba(76, 175, 80, 0.15);
+		}
+
+		.dark-mode {
+			--primary-color: #81c784;
+			--primary-light: #1b5e20;
+			--primary-dark: #a5d6a7;
+			--text-color: #e8f5e9;
+			--bg-color: #1b1b1b;
+			--card-bg: #2e2e2e;
+			--sidebar-bg: #2e2e2e;
+			--header-bg: #2e7d32;
+			--footer-bg: #1b5e20;
+			--accordion-header: #388e3c;
+			--accordion-hover: #4caf50;
+			--border-color: #4caf50;
+			--link-color: #81c784;
+			--link-hover: #a5d6a7;
+			--shadow-color: rgba(0, 0, 0, 0.3);
+		}
+
+		body {
+			background-color: var(--bg-color);
+			color: var(--text-color);
+			line-height: 1.6;
+			padding: 20px;
+			min-height: 100vh;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			background: var(--card-bg);
+			border-radius: 12px;
+			box-shadow: 0 10px 30px var(--shadow-color);
+			overflow: hidden;
+		}
+
+		header {
+			background: linear-gradient(90deg, var(--header-bg) 0%, var(--primary-color) 100%);
+			color: white;
+			padding: 30px;
+			text-align: center;
+			position: relative;
+		}
+
+		header h1 {
+			font-size: 2.5rem;
+			margin-bottom: 10px;
+		}
+
+		.subtitle {
+			font-size: 1.2rem;
+			opacity: 0.9;
+		}
+
+		.theme-switch {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+		}
+
+		.theme-switch-button {
+			background: rgba(255, 255, 255, 0.2);
+			border: none;
+			border-radius: 20px;
+			padding: 8px 15px;
+			color: white;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			font-weight: 500;
+		}
+
+		.theme-switch-button:hover {
+			background: rgba(255, 255, 255, 0.3);
+		}
+
+		.content {
+			display: flex;
+			flex-wrap: wrap;
+			padding: 20px;
+		}
+
+		.main-content {
+			flex: 3;
+			min-width: 300px;
+			padding: 20px;
+		}
+
+		.sidebar {
+			flex: 1;
+			min-width: 250px;
+			background: var(--sidebar-bg);
+			border-radius: 10px;
+			padding: 20px;
+			margin: 10px;
+			border: 1px solid var(--border-color);
+		}
+
+		.welcome-box {
+			background: var(--primary-light);
+			border-radius: 10px;
+			padding: 20px;
+			margin-bottom: 30px;
+			border-left: 5px solid var(--primary-color);
+			color: var(--text-color);
+		}
+
+		.accordion {
+			margin-bottom: 30px;
+		}
+
+		.accordion-item {
+			margin-bottom: 15px;
+			border-radius: 8px;
+			overflow: hidden;
+			box-shadow: 0 4px 8px var(--shadow-color);
+			border: 1px solid var(--border-color);
+		}
+
+		.accordion-header {
+			background: linear-gradient(90deg, var(--accordion-header) 0%, var(--primary-color) 100%);
+			color: white;
+			padding: 18px;
+			cursor: pointer;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			font-weight: 600;
+			transition: background 0.3s;
+		}
+
+		.accordion-header:hover {
+			background: linear-gradient(90deg, var(--accordion-hover) 0%, var(--primary-dark) 100%);
+		}
+
+		.accordion-header i {
+			transition: transform 0.3s;
+		}
+
+		.accordion-content {
+			background: var(--card-bg);
+			padding: 0;
+			max-height: 0;
+			overflow: hidden;
+			transition: max-height 0.3s ease-out;
+		}
+
+		.accordion-content ul {
+			list-style: none;
+			padding: 15px 20px;
+		}
+
+		.accordion-content li {
+			padding: 12px 0;
+			border-bottom: 1px solid var(--border-color);
+		}
+
+		.accordion-content li:last-child {
+			border-bottom: none;
+		}
+
+		.accordion-content a {
+			color: var(--link-color);
+			text-decoration: none;
+			display: flex;
+			align-items: center;
+			transition: color 0.2s;
+		}
+
+		.accordion-content a:hover {
+			color: var(--link-hover);
+			text-decoration: underline;
+		}
+
+		.accordion-content a i {
+			margin-right: 10px;
+			color: var(--primary-color);
+		}
+
+		.info-box {
+			background: var(--card-bg);
+			border-radius: 10px;
+			padding: 20px;
+			margin-bottom: 20px;
+			box-shadow: 0 4px 8px var(--shadow-color);
+			border: 1px solid var(--border-color);
+		}
+
+		.info-box h3 {
+			color: var(--primary-dark);
+			margin-bottom: 15px;
+			padding-bottom: 10px;
+			border-bottom: 2px solid var(--border-color);
+		}
+
+		.footer {
+			text-align: center;
+			padding: 20px;
+			background: var(--footer-bg);
+			color: white;
+			margin-top: 20px;
+		}
+
+		.footer a {
+			color: #c8e6c9;
+			text-decoration: none;
+		}
+
+		.footer a:hover {
+			text-decoration: underline;
+		}
+
+		@media (max-width: 768px) {
+			.content {
+				flex-direction: column;
+			}
+
+			.sidebar {
+				margin: 10px 0;
+			}
+
+			header h1 {
+				font-size: 2rem;
+			}
+		}
+
+		.active .accordion-header i {
+			transform: rotate(180deg);
+		}
+
+		.active .accordion-content {
+			max-height: 500px;
+		}
+
+		.link-button {
+			display: block;
+			background: var(--primary-color);
+			color: white;
+			padding: 15px;
+			border-radius: 8px;
+			text-align: center;
+			margin: 10px 0;
+			text-decoration: none;
+			font-weight: 600;
+			transition: background 0.3s;
+		}
+
+		.link-button:hover {
+			background: var(--primary-dark);
+		}
+
+		.link-button i {
+			margin-right: 8px;
+		}
+
+		.notice {
+			background: var(--primary-light);
+			border-left: 5px solid var(--primary-color);
+			padding: 15px;
+			border-radius: 5px;
+			margin: 20px 0;
+			font-size: 0.9rem;
+		}
+
+		.notice ul {
+			padding-left: 20px;
+			margin-top: 10px;
+		}
+
+		.notice li {
+			margin-bottom: 8px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<header>
+			<h1>第36届大学生英语爱好者协会</h1>
+			<p class="subtitle">微信公众平台数据迁移站</p>
+			<div class="theme-switch">
+				<button class="theme-switch-button" id="theme-toggle">
+					<i class="fas fa-moon"></i>
+					<span>深色模式</span>
+				</button>
+			</div>
+		</header>
+
+		<div class="content">
+			<div class="main-content">
+				<div class="welcome-box">
+					<h2>欢迎来到第36届大学生英语爱好者协会微信公众号数据存储和展示站</h2>
+					<p>这里保存了协会的历史资料、活动信息和珍贵回忆</p>
+				</div>
+
+				<div class="accordion">
+					<div class="accordion-item">
+						<div class="accordion-header">
+							<span>We曾经</span>
+							<i class="fas fa-chevron-down"></i>
+						</div>
+						<div class="accordion-content">
+							<ul>
+								<li><a href="自定义菜单/01We曾经/01我们的回忆/我们的回忆.html"><i class="fas fa-photo-video"></i>
+										我们的回忆</a></li>
+								<li><a href="自定义菜单/01We曾经/02我们的活动/html/活动总览.html"><i class="fas fa-calendar-alt"></i>
+										我们的活动</a></li>
+								<li><a href="自定义菜单/01We曾经/0335届ELA/35届ELA.html"><i class="fas fa-history"></i>
+										35届ELA</a></li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="accordion-item active">
+						<div class="accordion-header">
+							<span>We现在</span>
+							<i class="fas fa-chevron-down"></i>
+						</div>
+						<div class="accordion-content">
+							<ul>
+								<li><a href="自定义菜单/02We现在/01致萌新/致萌新.html"><i class="fas fa-smile"></i> 致萌新</a></li>
+								<li><a href="自定义菜单/02We现在/03我们的活动/html/0汇总.html"><i class="fas fa-calendar-check"></i>
+										我们的活动</a></li>
+								<li><a href="自定义菜单/02We现在/0236届迎新视频/36届迎新视频.html"><i class="fas fa-video"></i>
+										36届迎新视频</a></li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="accordion-item">
+						<div class="accordion-header">
+							<span>社团简介</span>
+							<i class="fas fa-chevron-down"></i>
+						</div>
+						<div class="accordion-content">
+							<ul>
+								<li><a href="自定义菜单/03社团简介/01简介/ELA简介.html"><i class="fas fa-info-circle"></i> 简介</a>
+								</li>
+								<li><a href="自定义菜单/03社团简介/02各部门职能/各部门职能.html"><i class="fas fa-sitemap"></i> 各部门职能</a>
+								</li>
+								<li><a href="自定义菜单/03社团简介/03负责人/负责人.html"><i class="fas fa-users"></i> 负责人</a></li>
+								<li><a href="自定义菜单/03社团简介/04会徽&会旗/会徽&会旗.html"><i class="fas fa-flag"></i> 社徽&社旗</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="notice">
+					<h3><i class="fas fa-exclamation-circle"></i> 重要说明</h3>
+					<ul>
+						<li>本网站用于第36届大学生英语爱好者协会微信公众号数据存储和展示</li>
+						<li>本次为此网站的第三次（v3）更新，主要变更了主题、优化了部分交互</li>
+						<li>由于托管网站和个人技术的原因，大部分内容（图片）打开会比较慢，请谅解</li>
+						<li>若遇到卡住的情况，请按F5刷新页面重新加载；加载结束的标志为不再转圈</li>
+						<li>技术栈为前端三件套（HTML5、CSS，JavaScript）</li>
+						<li>本次更新采用DeepSeek快速完成</li>
+						<li>本网站永久保存，如果有任何侵权行为，请联系作者协商删改</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="sidebar">
+				<a href="往期推文/html/0汇总.html" class="link-button"><i class="fas fa-newspaper"></i> 往期推文</a>
+
+				<a href="关注用户/users.html" class="link-button"><i class="fas fa-user-friends"></i> 关注用户</a>
+
+				<a href="KeyWordReply.html" class="link-button"><i class="fas fa-key"></i> 关键词回复</a>
+
+				<div class="info-box">
+					<h3><i class="fas fa-comment-dots"></i> 关注回复</h3>
+					<p>欢迎关注小e，在这里你能看到第36届大学生英语爱好者协会的简介和部门及其职能，也能看到我们曾经的活动，快来和小e一起探索英协的乐趣，探索英语的乐趣吧</p>
+					<p>回复职务或姓名还可以获得学长学姐的照片哦</p>
+					<p>此账号已暂停运营，谢谢关注</p>
+				</div>
+
+				<div class="info-box">
+					<h3><i class="fas fa-envelope"></i> 收到消息回复</h3>
+					<p>Glad to receive the short message from the handsome boys and pretty girls!</p>
+				</div>
+
+				<div class="info-box">
+					<h3><i class="fas fa-code-branch"></i> 项目地址</h3>
+					<p>Github: <a href="https://github.com/shiguoqing99/shiguoqing99.github.io" target="_blank">点击访问</a>
+					</p>
+				</div>
+
+				<div class="info-box">
+					<h3><i class="fas fa-envelope"></i> 联系方式</h3>
+					<p>作者邮箱（只接受邮箱）：</p>
+					<p>3118482822@qq.com（推荐）</p>
+					<p>shiguoqing99@gmail.com</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer">
+			<p>第36届大学生英语爱好者协会 &copy; 2023 | 数据迁移站</p>
+			<p>网站已经过作者反复调试，如果还有bug请联系作者邮箱，谢谢</p>
+		</div>
+	</div>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const accordionHeaders = document.querySelectorAll('.accordion-header');
+			const themeToggle = document.getElementById('theme-toggle');
+			const themeIcon = themeToggle.querySelector('i');
+
+			// 检查本地存储的主题偏好
+			if (localStorage.getItem('theme') === 'dark') {
+				document.body.classList.add('dark-mode');
+				themeIcon.classList.remove('fa-moon');
+				themeIcon.classList.add('fa-sun');
+				themeToggle.querySelector('span').textContent = '浅色模式';
+			}
+
+			// 主题切换功能
+			themeToggle.addEventListener('click', function () {
+				document.body.classList.toggle('dark-mode');
+
+				if (document.body.classList.contains('dark-mode')) {
+					localStorage.setItem('theme', 'dark');
+					themeIcon.classList.remove('fa-moon');
+					themeIcon.classList.add('fa-sun');
+					themeToggle.querySelector('span').textContent = '浅色模式';
+				} else {
+					localStorage.setItem('theme', 'light');
+					themeIcon.classList.remove('fa-sun');
+					themeIcon.classList.add('fa-moon');
+					themeToggle.querySelector('span').textContent = '深色模式';
+				}
+			});
+
+			// 折叠菜单功能
+			accordionHeaders.forEach(header => {
+				header.addEventListener('click', function () {
+					const item = this.parentElement;
+					const content = this.nextElementSibling;
+
+					// 关闭其他打开的项
+					document.querySelectorAll('.accordion-item.active').forEach(openItem => {
+						if (openItem !== item) {
+							openItem.classList.remove('active');
+							openItem.querySelector('.accordion-content').style.maxHeight = null;
+						}
+					});
+
+					// 切换当前项
+					item.classList.toggle('active');
+
+					if (item.classList.contains('active')) {
+						content.style.maxHeight = content.scrollHeight + "px";
+					} else {
+						content.style.maxHeight = null;
+					}
+				});
+			});
+
+			// 默认打开"We现在"部分
+			const nowContent = document.querySelector('.accordion-item.active .accordion-content');
+			if (nowContent) {
+				nowContent.style.maxHeight = nowContent.scrollHeight + "px";
+			}
+		});
+	</script>
+</body>
+
+</html>

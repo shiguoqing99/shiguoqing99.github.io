@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>往期推文汇总 - ELA 36</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<style>
+		:root {
+			--primary-color: #4caf50;
+			--primary-light: #e8f5e9;
+			--primary-dark: #2e7d32;
+			--text-color: #263238;
+			--bg-color: #f1f8e9;
+			--card-bg: #ffffff;
+			--sidebar-bg: #f1f8e9;
+			--header-bg: #388e3c;
+			--footer-bg: #2e7d32;
+			--accordion-header: #4caf50;
+			--accordion-hover: #388e3c;
+			--border-color: #c8e6c9;
+			--link-color: #2e7d32;
+			--link-hover: #1b5e20;
+			--shadow-color: rgba(76, 175, 80, 0.15);
+			--table-header: #4caf50;
+			--table-even: rgba(76, 175, 80, 0.05);
+			--table-hover: rgba(76, 175, 80, 0.1);
+		}
+
+		.dark-mode {
+			--primary-color: #81c784;
+			--primary-light: #1b5e20;
+			--primary-dark: #a5d6a7;
+			--text-color: #e8f5e9;
+			--bg-color: #1b1b1b;
+			--card-bg: #2e2e2e;
+			--sidebar-bg: #2e2e2e;
+			--header-bg: #2e7d32;
+			--footer-bg: #1b5e20;
+			--accordion-header: #388e3c;
+			--accordion-hover: #4caf50;
+			--border-color: #4caf50;
+			--link-color: #81c784;
+			--link-hover: #a5d6a7;
+			--shadow-color: rgba(0, 0, 0, 0.3);
+			--table-header: #388e3c;
+			--table-even: rgba(56, 142, 60, 0.1);
+			--table-hover: rgba(56, 142, 60, 0.2);
+		}
+
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+			transition: background-color 0.3s, color 0.3s;
+		}
+
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			line-height: 1.6;
+			color: var(--text-color);
+			background-color: var(--bg-color);
+			min-height: 100vh;
+			padding: 1rem;
+		}
+
+		a {
+			text-decoration: none;
+			color: var(--link-color);
+			transition: all 0.3s ease;
+			font-weight: 500;
+		}
+
+		a:hover {
+			color: var(--link-hover);
+			text-decoration: underline;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			background-color: var(--card-bg);
+			border-radius: 8px;
+			box-shadow: 0 10px 30px var(--shadow-color);
+			padding: 2rem;
+			position: relative;
+		}
+
+		header {
+			text-align: center;
+			margin-bottom: 2rem;
+			position: relative;
+		}
+
+		h1 {
+			color: var(--primary-dark);
+			font-size: 2.2rem;
+			font-weight: 700;
+			margin-bottom: 1.5rem;
+			position: relative;
+			display: inline-block;
+			padding: 0 2rem;
+		}
+
+		h1::after {
+			content: '';
+			position: absolute;
+			bottom: -10px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 80px;
+			height: 3px;
+			background: var(--primary-color);
+			border-radius: 2px;
+		}
+
+		.theme-switch {
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
+
+		.theme-switch-button {
+			background: rgba(76, 175, 80, 0.2);
+			border: none;
+			border-radius: 20px;
+			padding: 8px 15px;
+			color: var(--text-color);
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			font-weight: 500;
+		}
+
+		.theme-switch-button:hover {
+			background: rgba(76, 175, 80, 0.3);
+		}
+
+		.nav-buttons {
+			display: flex;
+			justify-content: left;
+			gap: 1rem;
+			margin-bottom: 2rem;
+			flex-wrap: wrap;
+		}
+
+		.nav-button {
+			display: inline-flex;
+			align-items: center;
+			padding: 0.6rem 1.2rem;
+			background-color: var(--primary-light);
+			border-radius: 6px;
+			transition: all 0.3s ease;
+			color: var(--text-color);
+			font-weight: 600;
+			border: 1px solid var(--border-color);
+		}
+
+		.nav-button:hover {
+			background-color: var(--primary-color);
+			color: white;
+			text-decoration: none;
+			transform: translateY(-2px);
+		}
+
+		.nav-button i {
+			margin-right: 0.5rem;
+		}
+
+		.table-container {
+			overflow-x: auto;
+			margin-top: 1.5rem;
+			border: 1px solid var(--border-color);
+			border-radius: 8px;
+			max-height: 70vh;
+			overflow-y: auto;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin: 0;
+			box-shadow: none;
+		}
+
+		th,
+		td {
+			padding: 12px 15px;
+			text-align: center;
+			border-bottom: 1px solid var(--border-color);
+		}
+
+		th {
+			background-color: var(--table-header);
+			color: white;
+			font-weight: 500;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+			position: sticky;
+			top: 0;
+			z-index: 10;
+		}
+
+		tr:nth-child(even) {
+			background-color: var(--table-even);
+		}
+
+		tr:hover {
+			background-color: var(--table-hover);
+		}
+
+		.entry-link {
+			display: inline-block;
+			padding: 0.3rem 0.8rem;
+			background-color: rgba(76, 175, 80, 0.1);
+			border-radius: 4px;
+			transition: all 0.3s ease;
+			color: var(--link-color);
+			font-weight: 500;
+		}
+
+		.entry-link:hover {
+			background-color: rgba(76, 175, 80, 0.2);
+			text-decoration: none;
+			transform: scale(1.05);
+			color: var(--link-hover);
+		}
+
+		@media (max-width: 768px) {
+			.container {
+				padding: 1rem;
+			}
+
+			th,
+			td {
+				padding: 8px 10px;
+				font-size: 0.9rem;
+			}
+
+			h1 {
+				font-size: 1.8rem;
+				padding: 0 1rem;
+			}
+
+			.nav-buttons {
+				flex-direction: column;
+				align-items: center;
+				gap: 0.8rem;
+			}
+
+			.nav-button {
+				justify-content: center;
+				width: 100%;
+				max-width: 250px;
+			}
+
+			.theme-switch {
+				position: relative;
+				margin-bottom: 1rem;
+				text-align: center;
+			}
+		}
+
+		@media (max-width: 480px) {
+			body {
+				padding: 0.5rem;
+			}
+
+			.container {
+				padding: 0.8rem;
+			}
+
+			h1 {
+				font-size: 1.5rem;
+			}
+
+			th,
+			td {
+				padding: 6px 8px;
+				font-size: 0.8rem;
+			}
+
+			.entry-link {
+				padding: 0.2rem 0.6rem;
+				font-size: 0.85rem;
+			}
+		}
+
+		sup {
+			font-size: 0.7em;
+			vertical-align: super;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<header>
+			<div class="theme-switch">
+				<button class="theme-switch-button" id="theme-toggle">
+					<i class="fas fa-moon"></i>
+					<span>深色模式</span>
+				</button>
+			</div>
+
+			<h1>往期推文汇总页</h1>
+
+			<div class="nav-buttons">
+				<a href="../../index.html" class="nav-button">
+					<i class="fas fa-home"></i> 返回首页
+				</a>
+				<a href="javascript:history.back()" class="nav-button">
+					<i class="fas fa-arrow-left"></i> 返回上一页
+				</a>
+			</div>
+		</header>
+
+		<div class="table-container">
+			<table>
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th>标题</th>
+						<th>副标题</th>
+						<th>作者</th>
+						<th>日期</th>
+						<th>入口</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>Admissions Promotional Video of 36<sup>th</sup> English Lovers' Association</td>
+						<td>36届大学生英语爱好者协会招生宣传片</td>
+						<td>ELA负责人</td>
+						<td>2019-09-05</td>
+						<td><a href="1.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>Hello, Teachers' Day</td>
+						<td>9.10教师节快乐</td>
+						<td>ELA负责人</td>
+						<td>2019-09-10</td>
+						<td><a href="2.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>Happy Mid-Autumn Festival</td>
+						<td>中秋节快乐</td>
+						<td>ELA负责人</td>
+						<td>2019-09-13</td>
+						<td><a href="3.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td>The National Day</td>
+						<td>热烈庆祝中华人民共和国成立70周年</td>
+						<td>ELA负责人</td>
+						<td>2019-10-01</td>
+						<td><a href="4.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>5</td>
+						<td>First Plenary Meeting of ELA</td>
+						<td>第36届大学生英语爱好者协会第一次全体大会</td>
+						<td>团支书</td>
+						<td>2019-10-18</td>
+						<td><a href="5.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>6</td>
+						<td>First English Corner</td>
+						<td>第一次英语角</td>
+						<td>团支书</td>
+						<td>2019-10-27</td>
+						<td><a href="6.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>7</td>
+						<td>First League Day</td>
+						<td>第一次团日活动</td>
+						<td>团支书</td>
+						<td>2019-11-03</td>
+						<td><a href="7.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>8</td>
+						<td>21-Day Morning Reading Plan</td>
+						<td>二十一天晨读计划</td>
+						<td>团支书</td>
+						<td>2019-11-09</td>
+						<td><a href="8.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>9</td>
+						<td>The Second League Day--Mountain Climbing</td>
+						<td>第二次团日活动——爬山</td>
+						<td>团支书</td>
+						<td>2019-11-11</td>
+						<td><a href="9.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>10</td>
+						<td>Bulid the Dream of the Winter Olympics, Fllow the Footsteps</td>
+						<td>“筑梦冬奥·追寻冬奥足迹”第九届英文达人秀初赛</td>
+						<td>团支书</td>
+						<td>2019-11-17</td>
+						<td><a href="10.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>11</td>
+						<td>Pray for the 70-year-old China</td>
+						<td>“礼赞·建国70周年”第九届英文达人秀决赛</td>
+						<td>团支书</td>
+						<td>2019-11-24</td>
+						<td><a href="11.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>12</td>
+						<td>Daily English, Three Short Passages</td>
+						<td>三篇每日英语短篇</td>
+						<td>团支书</td>
+						<td>2020-01-11</td>
+						<td><a href="12.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>13</td>
+						<td>Missing is Teasure</td>
+						<td>美句分享：思念是一种宝贵财富</td>
+						<td>团支书</td>
+						<td>2020-01-13</td>
+						<td><a href="13.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>14</td>
+						<td>Editor's Self Account</td>
+						<td>编者自述</td>
+						<td>团支书</td>
+						<td>2020-01-16</td>
+						<td><a href="14.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>15</td>
+						<td>Minor Chinese New Year</td>
+						<td>小年</td>
+						<td>团支书</td>
+						<td>2020-01-17</td>
+						<td><a href="15.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>16</td>
+						<td>Daily English-Emotion Control</td>
+						<td>情绪控制</td>
+						<td>团支书</td>
+						<td>2020-01-18</td>
+						<td><a href="16.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>17</td>
+						<td>Daily English</td>
+						<td>腊月廿五·贴春联</td>
+						<td>团支书</td>
+						<td>2020-01-19</td>
+						<td><a href="17.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>18</td>
+						<td>Daily English</td>
+						<td>腊月廿六·炖猪肉</td>
+						<td>团支书</td>
+						<td>2020-01-20</td>
+						<td><a href="18.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>19</td>
+						<td>Daily English-Company is the Longest Confession of Love</td>
+						<td>陪伴，是最长情的告白</td>
+						<td>团支书</td>
+						<td>2020-01-21</td>
+						<td><a href="19.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>20</td>
+						<td>Lunar December 28<sup>th</sup> today</td>
+						<td>腊月廿八</td>
+						<td>团支书</td>
+						<td>2020-01-22</td>
+						<td><a href="20.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>21</td>
+						<td>Happy 2020's Chinese New Year</td>
+						<td>鼠年快乐</td>
+						<td>团支书</td>
+						<td>2020-01-24</td>
+						<td><a href="21.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>22</td>
+						<td>Fight the Plague-We are On the Way</td>
+						<td>抗"疫"，我们在路上</td>
+						<td>团支书</td>
+						<td>2020-03-03</td>
+						<td><a href="22.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>23</td>
+						<td>Mourning for Heroes-Salution</td>
+						<td>追悼英雄——向英雄致敬</td>
+						<td>团支书</td>
+						<td>2020-04-04</td>
+						<td><a href="23.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>24</td>
+						<td>International Labor Day</td>
+						<td>国际五一劳动节</td>
+						<td>团支书</td>
+						<td>2020-05-01</td>
+						<td><a href="24.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>25</td>
+						<td>Mother's Day</td>
+						<td>母亲节，献给最美的她</td>
+						<td>团支书</td>
+						<td>2020-05-10</td>
+						<td><a href="25.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>26</td>
+						<td>Selection of Top Ten Associations</td>
+						<td>十佳社团评选</td>
+						<td>团支书</td>
+						<td>2020-06-08</td>
+						<td><a href="26.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>27</td>
+						<td>Wechat Selection Result of the Most Elegant Association</td>
+						<td>最具风采社团微信评比结果</td>
+						<td>团支书</td>
+						<td>2020-06-13</td>
+						<td><a href="27.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>28</td>
+						<td>Suspension Announcement</td>
+						<td>停更公告</td>
+						<td>团支书</td>
+						<td>2020-11-08</td>
+						<td><a href="28.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>29</td>
+						<td>People in Charge of 37<sup>th</sup> ELA</td>
+						<td>第37届ELA负责人</td>
+						<td>团支书</td>
+						<td>2020-11-08</td>
+						<td><a href="29.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>30</td>
+						<td>Result of Top Ten Associations</td>
+						<td>十佳社团评选结果</td>
+						<td>团支书</td>
+						<td>2020-11-08</td>
+						<td><a href="30.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>31</td>
+						<td>Looking for the Top 100 student Associations of Universities in China, 2020</td>
+						<td>2020寻找全国高校百强学生社团</td>
+						<td>ELA前负责人</td>
+						<td>2021-1-10</td>
+						<td><a href="31.html" class="entry-link">进入</a></td>
+					</tr>
+					<tr>
+						<td>32</td>
+						<td>Announcement of Official Account Cancellation and Data Migration</td>
+						<td>关于公众号的注销与数据迁移的说明</td>
+						<td>ELA前负责人</td>
+						<td>2022-03-15</td>
+						<td><a href="32.html" class="entry-link">进入</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const themeToggle = document.getElementById('theme-toggle');
+			const themeIcon = themeToggle.querySelector('i');
+
+			// 检查本地存储的主题偏好
+			if (localStorage.getItem('theme') === 'dark') {
+				document.body.classList.add('dark-mode');
+				themeIcon.classList.remove('fa-moon');
+				themeIcon.classList.add('fa-sun');
+				themeToggle.querySelector('span').textContent = '浅色模式';
+			}
+
+			// 主题切换功能
+			themeToggle.addEventListener('click', function () {
+				document.body.classList.toggle('dark-mode');
+
+				if (document.body.classList.contains('dark-mode')) {
+					localStorage.setItem('theme', 'dark');
+					themeIcon.classList.remove('fa-moon');
+					themeIcon.classList.add('fa-sun');
+					themeToggle.querySelector('span').textContent = '浅色模式';
+				} else {
+					localStorage.setItem('theme', 'light');
+					themeIcon.classList.remove('fa-sun');
+					themeIcon.classList.add('fa-moon');
+					themeToggle.querySelector('span').textContent = '深色模式';
+				}
+			});
+		});
+	</script>
+</body>
+
+</html>

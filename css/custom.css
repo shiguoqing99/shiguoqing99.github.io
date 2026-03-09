@@ -1,0 +1,177 @@
+/* 定义本地字体 */
+@font-face {
+    font-family: 'WeiLaiHei';
+    /* 字体名称，可以自定义 */
+    src: url('/font/index/WeiLaiHei.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    /* 优化字体加载体验 */
+}
+
+/* 新增：定义可爱情感字体 */
+@font-face {
+    font-family: 'KeAi';
+    /* 字体名称，可以自定义 */
+    src: url('/font/index/KeAi.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* 应用到主页大标题 */
+#site-title {
+    font-family: 'WeiLaiHei', sans-serif !important;
+    /* 可以微调字号 */
+    font-size: 5.25em !important;
+    /* 如果觉得字太细，可以尝试加粗 */
+    font-weight: normal !important;
+    /* 黑色阴影 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
+    /* 让背景只包裹文字 */
+    padding: 10px 20px !important;
+    border-radius: 8px !important;
+    display: inline-block !important;
+    /* 修复居中：让h1重新成为块级元素并居中 */
+    display: block !important;
+    /* 改回 block */
+    text-align: center !important;
+    /* 文字水平居中 */
+    width: fit-content !important;
+    /* 宽度自适应内容 */
+    margin-left: auto !important;
+    /* 左右自动边距实现居中 */
+    margin-right: auto !important;
+
+}
+
+/* 副标题使用可爱情感字体 */
+#subtitle {
+    font-family: 'KeAi', cursive, sans-serif !important;
+    /* 可选：调整副标题的字号 */
+    font-size: 2em !important;
+    /* 可选：调整行高，让多行文字更好看 */
+}
+
+/* /source/css/custom.css */
+#site-title .red {
+    color: #ff0000 !important;
+}
+
+#site-title .yellow {
+    color: #ffd700 !important;
+}
+
+#site-title .green {
+    color: #00ff00 !important;
+}
+
+/* 纯CSS背景轮播 - 无闪烁无黑屏版 */
+#page-header {
+    position: relative !important;
+    animation: bgAnimation 45s infinite !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-color: #000000 !important;
+}
+
+@keyframes bgAnimation {
+
+    0%,
+    11% {
+        background-image: url('/img/bg1.jpg');
+    }
+
+    12.5%,
+    23.5% {
+        background-image: url('/img/bg2.jpg');
+    }
+
+    25%,
+    36% {
+        background-image: url('/img/bg3.jpg');
+    }
+
+    37.5%,
+    48.5% {
+        background-image: url('/img/bg4.jpg');
+    }
+
+    50%,
+    61% {
+        background-image: url('/img/bg5.jpg');
+    }
+
+    62.5%,
+    73.5% {
+        background-image: url('/img/bg6.jpg');
+    }
+
+    75%,
+    86% {
+        background-image: url('/img/bg7.jpg');
+    }
+
+    87.5%,
+    98.5% {
+        background-image: url('/img/bg8.jpg');
+    }
+
+    100% {
+        background-image: url('/img/bg1.jpg');
+    }
+
+    /* 最后一帧直接跳回第一张 */
+}
+
+/* 预加载所有图片 */
+#page-header::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    background:
+        url('/img/bg1.jpg'),
+        url('/img/bg2.jpg'),
+        url('/img/bg3.jpg'),
+        url('/img/bg4.jpg'),
+        url('/img/bg5.jpg'),
+        url('/img/bg6.jpg'),
+        url('/img/bg7.jpg'),
+        url('/img/bg8.jpg');
+}
+
+/* 让文字更清晰 - 遮罩层 */
+#page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+/* 标题和副标题保持原来的位置，只提高层级 */
+#page-header #site-info {
+    position: relative;
+    /* 保持原有定位 */
+    z-index: 2;
+}
+
+#page-header #site-subtitle {
+    position: relative;
+    /* 保持原有定位 */
+    z-index: 2;
+}
+
+/* 箭头固定在底部 */
+#page-header #scroll-down {
+    position: absolute !important;
+    bottom: 20px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 3 !important;
+}

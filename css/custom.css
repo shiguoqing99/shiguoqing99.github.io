@@ -2,7 +2,7 @@
 @font-face {
     font-family: 'WeiLaiHei';
     /* 字体名称，可以自定义 */
-    src: url('/font/index/WeiLaiHei.ttf') format('truetype');
+    src: url('/font/index/WeiLaiHei.woff2') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -13,7 +13,7 @@
 @font-face {
     font-family: 'KeAi';
     /* 字体名称，可以自定义 */
-    src: url('/font/index/KeAi.ttf') format('truetype');
+    src: url('/font/index/KeAi.woff2') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;

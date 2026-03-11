@@ -42,7 +42,6 @@
     margin-left: auto !important;
     /* 左右自动边距实现居中 */
     margin-right: auto !important;
-
 }
 
 /* 副标题使用可爱情感字体 */
@@ -174,4 +173,29 @@
     left: 50% !important;
     transform: translateX(-50%) !important;
     z-index: 3 !important;
+}
+
+/* 主副标题整体垂直居中 */
+#page-header #site-info {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: center !important;
+    z-index: 2 !important;
+}
+
+/* 确保大标题本身样式不被覆盖 */
+#page-header #site-title {
+    margin: 0 auto !important;
+    float: none !important;
+    display: block !important;
+}
+
+/* 微调大标题和副标题的间距 */
+#page-header #site-subtitle {
+    margin-top: 10px !important;
 }

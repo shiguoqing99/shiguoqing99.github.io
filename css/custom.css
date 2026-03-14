@@ -175,19 +175,6 @@
     z-index: 3 !important;
 }
 
-/* 主副标题整体垂直居中 */
-#page-header #site-info {
-    position: absolute !important;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    text-align: center !important;
-    z-index: 2 !important;
-}
-
 /* 确保大标题本身样式不被覆盖 */
 #page-header #site-title {
     margin: 0 auto !important;
@@ -198,4 +185,39 @@
 /* 微调大标题和副标题的间距 */
 #page-header #site-subtitle {
     margin-top: 10px !important;
+}
+
+/* 隐藏统计信息里的"标签"链接 */
+a[href="/tags/"] {
+    display: none !important;
+}
+
+/* 给整个 post-info 加背景 */
+#post-info {
+    background: rgba(0, 0, 0, 0.5) !important;
+    padding: 15px 20px !important;
+    border-radius: 12px !important;
+    display: inline-block !important;
+    width: fit-content !important;
+}
+
+/* 确保文字颜色变亮 */
+#post-info h1.post-title {
+    font-family: 'WeiLaiHei', sans-serif !important;
+    /* 可以微调字号 */
+    font-size: 3em !important;
+    /* 如果觉得字太细，可以尝试加粗 */
+}
+
+#post-info h1.post-title,
+#post-meta,
+#post-meta a,
+#post-meta span,
+#post-meta time {
+    color: #fff !important;
+}
+
+/* 图标也变亮 */
+#post-meta i {
+    color: #fff !important;
 }

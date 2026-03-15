@@ -23,7 +23,7 @@
 #site-title {
     font-family: 'WeiLaiHei', sans-serif !important;
     /* 可以微调字号 */
-    font-size: 5.25em !important;
+    font-size: 5em !important;
     /* 如果觉得字太细，可以尝试加粗 */
     font-weight: normal !important;
     /* 黑色阴影 */
@@ -48,7 +48,7 @@
 #subtitle {
     font-family: 'KeAi', cursive, sans-serif !important;
     /* 可选：调整副标题的字号 */
-    font-size: 2em !important;
+    font-size: 1.5em !important;
     /* 可选：调整行高，让多行文字更好看 */
 }
 
@@ -155,9 +155,13 @@
 
 /* 标题和副标题保持原来的位置，只提高层级 */
 #page-header #site-info {
-    position: relative;
-    /* 保持原有定位 */
-    z-index: 2;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    text-align: center !important;
+    width: max-content !important;
+    z-index: 2 !important;
 }
 
 #page-header #site-subtitle {

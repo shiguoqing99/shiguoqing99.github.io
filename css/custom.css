@@ -23,7 +23,7 @@
 #site-title {
     font-family: 'WeiLaiHei', sans-serif !important;
     /* 可以微调字号 */
-    font-size: 5em !important;
+    font-size: 4em !important;
     /* 如果觉得字太细，可以尝试加粗 */
     font-weight: normal !important;
     /* 黑色阴影 */
@@ -153,7 +153,7 @@
     z-index: 1;
 }
 
-/* 标题和副标题保持原来的位置，只提高层级 */
+/* 修复主副标题居中问题 - 移动端适配 */
 #page-header #site-info {
     position: absolute !important;
     top: 50% !important;
@@ -161,13 +161,14 @@
     transform: translate(-50%, -50%) !important;
     text-align: center !important;
     width: max-content !important;
+    max-width: 90vw !important;
     z-index: 2 !important;
 }
 
-#page-header #site-subtitle {
-    position: relative;
-    /* 保持原有定位 */
-    z-index: 2;
+#page-header #site-title {
+    margin: 0 auto !important;
+    float: none !important;
+    display: block !important;
 }
 
 /* 箭头固定在底部 */

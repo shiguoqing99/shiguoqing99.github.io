@@ -1,0 +1,239 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>基于树莓派5的4G模块安装测试 | 和猫在指间看世界</title><meta name="author" content="SeaSparkle"><meta name="copyright" content="SeaSparkle"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f2edff"><meta name="description" content="前言使用树莓派5、A7670E 4G模块，X7 Pro飞控进行蜂窝网络Mavlink数据发送测试 图示为 8GB树莓派5 单板，连接硬件为  type c连接电脑用于供电 USB连接A7670E模块用于读取蜂窝网络 USB连接x7 Pro飞控用于获取速度经纬度高度以及姿态状态信息 鼠标键盘外设 4G LTE 天线 micro HDMI 转 HDMI 连接显示器（可选，主要还是键盘和ssh操作） A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于树莓派5的4G模块安装测试">
+<meta property="og:url" content="https://shiguoqing99.github.io/2026/05/16/%E5%9F%BA%E4%BA%8E%E6%A0%91%E8%8E%93%E6%B4%BE5%E7%9A%844G%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85%E6%B5%8B%E8%AF%95/index.html">
+<meta property="og:site_name" content="和猫在指间看世界">
+<meta property="og:description" content="前言使用树莓派5、A7670E 4G模块，X7 Pro飞控进行蜂窝网络Mavlink数据发送测试 图示为 8GB树莓派5 单板，连接硬件为  type c连接电脑用于供电 USB连接A7670E模块用于读取蜂窝网络 USB连接x7 Pro飞控用于获取速度经纬度高度以及姿态状态信息 鼠标键盘外设 4G LTE 天线 micro HDMI 转 HDMI 连接显示器（可选，主要还是键盘和ssh操作） A">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://shiguoqing99.github.io/img/code/%E5%9F%BA%E4%BA%8E%E6%A0%91%E8%8E%93%E6%B4%BE5%E7%9A%844G%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85%E6%B5%8B%E8%AF%95/image.png">
+<meta property="article:published_time" content="2026-05-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-15T16:00:00.000Z">
+<meta property="article:author" content="SeaSparkle">
+<meta property="article:tag" content="树莓派">
+<meta property="article:tag" content="A7670E">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shiguoqing99.github.io/img/code/%E5%9F%BA%E4%BA%8E%E6%A0%91%E8%8E%93%E6%B4%BE5%E7%9A%844G%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85%E6%B5%8B%E8%AF%95/image.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "基于树莓派5的4G模块安装测试",
+  "url": "https://shiguoqing99.github.io/2026/05/16/%E5%9F%BA%E4%BA%8E%E6%A0%91%E8%8E%93%E6%B4%BE5%E7%9A%844G%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85%E6%B5%8B%E8%AF%95/",
+  "image": "https://shiguoqing99.github.io/img/code/%E5%9F%BA%E4%BA%8E%E6%A0%91%E8%8E%93%E6%B4%BE5%E7%9A%844G%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85%E6%B5%8B%E8%AF%95/image.png",
+  "datePublished": "2026-05-15T16:00:00.000Z",
+  "dateModified": "2026-05-15T16:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "SeaSparkle",
+      "url": "https://shiguoqing99.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://shiguoqing99.github.io/2026/05/16/%E5%9F%BA%E4%BA%8E%E6%A0%91%E8%8E%93%E6%B4%BE5%E7%9A%844G%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85%E6%B5%8B%E8%AF%95/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#2d2a3d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f2edff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '基于树莓派5的4G模块安装测试',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/%E6%8C%87%E9%97%B4%E4%B8%96%E7%95%8C/"><i class="fa-fw fas fa-code"></i><span> 指间世界</span></a></div><div class="menus_item"><a class="site-page" href="/categories/%E6%88%BF%E4%B8%9C%E7%9A%84%E7%8C%AB/"><i class="fa-fw fas fa-music"></i><span> 房东的猫</span></a></div><div class="menus_item"><a class="site-page" href="/categories/%E8%B5%B0%E8%BF%87%E7%9A%84%E8%B7%AF/"><i class="fa-fw fas fa-plane"></i><span> 走过的路</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 了解博主</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/code/%E5%9F%BA%E4%BA%8E%E6%A0%91%E8%8E%93%E6%B4%BE5%E7%9A%844G%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85%E6%B5%8B%E8%AF%95/image.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">和猫在指间看世界</span></a><a class="nav-page-title" href="/"><span class="site-name">基于树莓派5的4G模块安装测试</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/%E6%8C%87%E9%97%B4%E4%B8%96%E7%95%8C/"><i class="fa-fw fas fa-code"></i><span> 指间世界</span></a></div><div class="menus_item"><a class="site-page" href="/categories/%E6%88%BF%E4%B8%9C%E7%9A%84%E7%8C%AB/"><i class="fa-fw fas fa-music"></i><span> 房东的猫</span></a></div><div class="menus_item"><a class="site-page" href="/categories/%E8%B5%B0%E8%BF%87%E7%9A%84%E8%B7%AF/"><i class="fa-fw fas fa-plane"></i><span> 走过的路</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 了解博主</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">基于树莓派5的4G模块安装测试</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-05-15T16:00:00.000Z" title="发表于 2026-05-16 00:00:00">2026-05-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">发生于</span><time class="post-meta-date-updated" datetime="2026-05-15T16:00:00.000Z" title="发生于 2026-05-16 00:00:00">2026-05-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8C%87%E9%97%B4%E4%B8%96%E7%95%8C/">指间世界</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>使用树莓派5、A7670E 4G模块，X7 Pro飞控进行蜂窝网络Mavlink数据发送测试</p>
+<p>图示为 8GB树莓派5 单板，连接硬件为</p>
+<ul>
+<li>type c连接电脑用于供电</li>
+<li>USB连接A7670E模块用于读取蜂窝网络</li>
+<li>USB连接x7 Pro飞控用于获取速度经纬度高度以及姿态状态信息</li>
+<li>鼠标键盘外设</li>
+<li>4G LTE 天线</li>
+<li>micro HDMI 转 HDMI 连接显示器（可选，主要还是键盘和ssh操作）</li>
+<li>A7670E模块扣在树莓派的GPIO引脚上（可选）</li>
+</ul>
+<h2 id="公网地址（加密）"><a href="#公网地址（加密）" class="headerlink" title="公网地址（加密）"></a>公网地址（加密）</h2><p>1.23.45.67:14550</p>
+<h2 id="刷入系统后，连接默认WiFi"><a href="#刷入系统后，连接默认WiFi" class="headerlink" title="刷入系统后，连接默认WiFi"></a>刷入系统后，连接默认WiFi</h2><h2 id="SSH远程连接"><a href="#SSH远程连接" class="headerlink" title="SSH远程连接"></a>SSH远程连接</h2><h3 id="远程主机的-SSH-密钥发生了变化，SSH-客户端出于安全考虑阻止了连接，使用以下命令重置密钥"><a href="#远程主机的-SSH-密钥发生了变化，SSH-客户端出于安全考虑阻止了连接，使用以下命令重置密钥" class="headerlink" title="远程主机的 SSH 密钥发生了变化，SSH 客户端出于安全考虑阻止了连接，使用以下命令重置密钥"></a>远程主机的 SSH 密钥发生了变化，SSH 客户端出于安全考虑阻止了连接，使用以下命令重置密钥</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -R 192.168.0.46</span><br></pre></td></tr></table></figure>
+<h3 id="免密登录"><a href="#免密登录" class="headerlink" title="免密登录"></a>免密登录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建免密登录文件</span></span><br><span class="line"><span class="built_in">mkdir</span> .ssh</span><br><span class="line"><span class="built_in">touch</span> authorized_keys</span><br><span class="line"><span class="comment"># 输入密钥（已加密）</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDyJ9ksoNNRs4qweqwewavawevwewcerwvrwvawvwvwcacrawrcawrrvw</span></span><br><span class="line"><span class="string">&quot;</span> &gt;&gt; ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+<h2 id="0-共享文件夹"><a href="#0-共享文件夹" class="headerlink" title="0. 共享文件夹"></a>0. 共享文件夹</h2><h3 id="切换阿里源"><a href="#切换阿里源" class="headerlink" title="切换阿里源"></a>切换阿里源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> sed -i <span class="string">&#x27;s|http://deb.debian.org|http://mirrors.aliyun.com|g&#x27;</span> /etc/apt/sources.list.d/debian.sources &amp;&amp; <span class="built_in">sudo</span> apt update</span><br></pre></td></tr></table></figure>
+<h3 id="安装Samba（如未安装）"><a href="#安装Samba（如未安装）" class="headerlink" title="安装Samba（如未安装）"></a>安装Samba（如未安装）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install samba samba-common-bin -y</span><br></pre></td></tr></table></figure>
+<h3 id="编辑Samba配置文件"><a href="#编辑Samba配置文件" class="headerlink" title="编辑Samba配置文件"></a>编辑Samba配置文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/samba/smb.conf</span><br></pre></td></tr></table></figure>
+<h3 id="共享pi的home目录"><a href="#共享pi的home目录" class="headerlink" title="共享pi的home目录"></a>共享pi的home目录</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[pi]</span></span><br><span class="line">   <span class="attr">comment</span> = pi</span><br><span class="line">   <span class="attr">path</span> = /home/pi</span><br><span class="line">   <span class="attr">browseable</span> = <span class="literal">yes</span></span><br><span class="line">   read <span class="attr">only</span> = <span class="literal">no</span></span><br><span class="line">   guest <span class="attr">ok</span> = <span class="literal">no</span></span><br><span class="line">   valid <span class="attr">users</span> = pi</span><br><span class="line">   create <span class="attr">mask</span> = <span class="number">0755</span></span><br><span class="line">   directory <span class="attr">mask</span> = <span class="number">0755</span></span><br></pre></td></tr></table></figure>
+<h3 id="设置Samba用户密码"><a href="#设置Samba用户密码" class="headerlink" title="设置Samba用户密码"></a>设置Samba用户密码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 为需要访问的用户设置samba密码</span></span><br><span class="line"><span class="built_in">sudo</span> smbpasswd -a pi</span><br><span class="line"><span class="comment"># 重启服务</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl restart smbd</span><br></pre></td></tr></table></figure>
+<h3 id="修改-home-pi目录权限"><a href="#修改-home-pi目录权限" class="headerlink" title="修改&#x2F;home&#x2F;pi目录权限"></a>修改&#x2F;home&#x2F;pi目录权限</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> 755 /home/pi</span><br></pre></td></tr></table></figure>
+<h2 id="1-将项目文件复制到树莓派"><a href="#1-将项目文件复制到树莓派" class="headerlink" title="1. 将项目文件复制到树莓派"></a>1. 将项目文件复制到树莓派</h2><h2 id="2-生成可执行文件"><a href="#2-生成可执行文件" class="headerlink" title="2. 生成可执行文件"></a>2. 生成可执行文件</h2><h3 id="安装必要开发环境"><a href="#安装必要开发环境" class="headerlink" title="安装必要开发环境"></a>安装必要开发环境</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># qt6-base-dev → Core + Network 开发库</span></span><br><span class="line"><span class="comment"># qt6-serialport-dev → SerialPort 开发库</span></span><br><span class="line"><span class="comment"># cmake → 构建工具</span></span><br><span class="line"><span class="built_in">sudo</span> apt install qt6-base-dev qt6-serialport-dev cmake</span><br></pre></td></tr></table></figure>
+<h3 id="编译运行Qt程序完整命令"><a href="#编译运行Qt程序完整命令" class="headerlink" title="编译运行Qt程序完整命令"></a>编译运行Qt程序完整命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/260508MavLinkForwarderWithSerialPort</span><br><span class="line"><span class="built_in">rm</span> -rf build</span><br><span class="line"><span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">cmake ..</span><br><span class="line">make -j$(<span class="built_in">nproc</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="3-配置网络"><a href="#3-配置网络" class="headerlink" title="3. 配置网络"></a>3. 配置网络</h2><h3 id="删除旧连接"><a href="#删除旧连接" class="headerlink" title="删除旧连接"></a>删除旧连接</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nmcli connection delete <span class="string">&quot;netplan-wlan0-WiFi&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="重新连接并保存密码"><a href="#重新连接并保存密码" class="headerlink" title="重新连接并保存密码"></a>重新连接并保存密码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nmcli device wifi connect <span class="string">&quot;WiFi&quot;</span> --ask</span><br></pre></td></tr></table></figure>
+<p>等待输入密码</p>
+<h3 id="连接4G模块，插入手机卡，此时会断开ssh（默认走usb路由）"><a href="#连接4G模块，插入手机卡，此时会断开ssh（默认走usb路由）" class="headerlink" title="连接4G模块，插入手机卡，此时会断开ssh（默认走usb路由）"></a>连接4G模块，插入手机卡，此时会断开ssh（默认走usb路由）</h3><p>由于树莓派串口默认用于终端调试，如需使用串口，则需要修改树莓派设置。<br>执行如下命令进入树莓派配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> raspi-config</span><br></pre></td></tr></table></figure>
+<p>选择Interfacing Options -&gt;Serial -&gt;no -&gt; yes，关闭串口调试功能</p>
+<p>A76XX 4G模块通过USB口连接到树莓派或Jetson Nano上，然后执行指令，看是否可以正<br>常识别到ttyUSB1，可以的话，通过minicom打开该端口（需安装minicom，见下文）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> /dev/ttyUSB*</span><br><span class="line"><span class="built_in">sudo</span> minicom -D /dev/ttyUSB1</span><br></pre></td></tr></table></figure>
+<p>通过minicom发送以下指令开启RNDIS拨号上网，然后等待模组重启</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># AT命令</span><br><span class="line">AT+DIALMODE=0</span><br><span class="line">AT$MYCONFIG=&quot;usbnetmode&quot;,0</span><br></pre></td></tr></table></figure>
+<p>ifconfig 查看是否有识别出一个usb0的网卡</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig</span><br></pre></td></tr></table></figure>
+<p>获取ip地址（如果没有usb0网卡，也是通过这个指令获取，<strong>这个我没用到</strong>）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dhclient -v usb0</span><br></pre></td></tr></table></figure>
+<p>测试下通过usb0无线网卡ping百度能否正常联网：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ping -I usb0 www.baidu.com</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>该部分源于商家手册，主要用来初始化默认拨号</p>
+</blockquote>
+<h3 id="树莓派本地终端"><a href="#树莓派本地终端" class="headerlink" title="树莓派本地终端"></a>树莓派本地终端</h3><p>WiFi 设置高优先级（数值小）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nmcli connection modify <span class="string">&quot;WiFi&quot;</span> ipv4.route-metric 100 ipv6.route-metric 100</span><br></pre></td></tr></table></figure>
+<p>手机卡设置低优先级（数值大）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nmcli connection modify <span class="string">&quot;netplan-eth0&quot;</span> ipv4.route-metric 200 ipv6.route-metric 200</span><br></pre></td></tr></table></figure>
+<p>重启网络服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart NetworkManager</span><br></pre></td></tr></table></figure>
+<p>此时会优先走WiFi</p>
+<p>但是此时输入<code>ip -4 r</code>会usb0占第一个无法ssh，将两个优先的<code>usb0</code>都删掉</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ip route del default via 192.168.0.1 dev usb0 metric 100</span><br><span class="line"><span class="built_in">sudo</span> ip route del 192.168.0.0/24 dev usb0 proto kernel scope <span class="built_in">link</span> src 192.168.0.100 metric 100</span><br></pre></td></tr></table></figure>
+<p>重连ssh</p>
+<h3 id="激活手机卡"><a href="#激活手机卡" class="headerlink" title="激活手机卡"></a>激活手机卡</h3><p>安装minicom</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install minicom -y</span><br></pre></td></tr></table></figure>
+<p>复位模块，重新注册,用 minicom 连接模块的 AT 串口（通常是 &#x2F;dev&#x2F;ttyUSB2）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> minicom -D /dev/ttyUSB2 -b 115200</span><br></pre></td></tr></table></figure>
+<p>在 minicom 中输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">at+reset</span><br></pre></td></tr></table></figure>
+<p>执行后等待约 10-15 秒，观察绿灯是否从常亮变成慢闪。如果变成慢闪，说明联网成功。 Ctrl+A → Q 退出。</p>
+<blockquote>
+<p>用于重新注册，每次插拔卡都需要进行</p>
+</blockquote>
+<h2 id="4-测试"><a href="#4-测试" class="headerlink" title="4. 测试"></a>4. 测试</h2><h3 id="WiFi测试"><a href="#WiFi测试" class="headerlink" title="WiFi测试"></a>WiFi测试</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> 260508MavLinkForwarderWithSerialPort/build/</span><br><span class="line">./SerialForwarder</span><br></pre></td></tr></table></figure>
+<h3 id="流量测试"><a href="#流量测试" class="headerlink" title="流量测试"></a>流量测试</h3><p>路由器屏蔽树莓派（桌面版关掉WiFi），自动跳转</p>
+<h2 id="5-开机自启"><a href="#5-开机自启" class="headerlink" title="5. 开机自启"></a>5. 开机自启</h2><p>创建 service 文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/systemd/system/serialforwarder.service</span><br></pre></td></tr></table></figure>
+<p>写入以下内容（根据你的实际路径调整 ExecStart）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=SerialForwarder</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/home/pi/260508MavLinkForwarderWithSerialPort/build/SerialForwarder</span><br><span class="line">WorkingDirectory=/home/pi/260508MavLinkForwarderWithSerialPort/build</span><br><span class="line">Restart=always</span><br><span class="line">User=pi</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>启用并启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl daemon-reload</span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> serialforwarder.service</span><br><span class="line"><span class="built_in">sudo</span> systemctl start serialforwarder.service</span><br></pre></td></tr></table></figure>
+<p>查看状态</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl status serialforwarder.service</span><br></pre></td></tr></table></figure>
+<h2 id="6-后记"><a href="#6-后记" class="headerlink" title="6. 后记"></a>6. 后记</h2><p>尚未进行ipv6的尝试，后续尝试，与商家沟通说是支持IPv4&#x2F;v6双栈</p>
+<p>大量基础操作已省略，只是记录关键节点命令（对笔者来说比较新的），细节不清楚的可以评论</p>
+<p>因AI芯片需求过大，各类储存产能紧张，现在一整套树莓派的国内价格几乎2000元左右（包括基本组件不单单是板子），再加上A7670E模块，64GB内存卡和物联卡，总硬件成本将近2500，非必要没必要复现。国产可替代但是成本也差不了太多</p>
+<p>A7670E模块不只有4G蜂窝网络功能，还有定位、语音等功能，后续有时间再挖掘</p>
+<p>尽量不要过于频繁用自己的手机卡测试，使用专门的物联流量卡，<strong>频繁变更IMEI容易被锁卡</strong></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://shiguoqing99.github.io">SeaSparkle</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://shiguoqing99.github.io/2026/05/16/%E5%9F%BA%E4%BA%8E%E6%A0%91%E8%8E%93%E6%B4%BE5%E7%9A%844G%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85%E6%B5%8B%E8%AF%95/">https://shiguoqing99.github.io/2026/05/16/%E5%9F%BA%E4%BA%8E%E6%A0%91%E8%8E%93%E6%B4%BE5%E7%9A%844G%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85%E6%B5%8B%E8%AF%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://shiguoqing99.github.io" target="_blank">和猫在指间看世界</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a><a class="post-meta__tags" href="/tags/A7670E/">A7670E</a></div><div class="post-share"><div class="social-share" data-image="/img/code/%E5%9F%BA%E4%BA%8E%E6%A0%91%E8%8E%93%E6%B4%BE5%E7%9A%844G%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85%E6%B5%8B%E8%AF%95/image.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/05/07/%E5%9F%BA%E4%BA%8Eipv6%E5%92%8Cdynv6%E7%9A%84%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/" title="基于ipv6和dynv6的网站部署"><img class="cover" src="/img/code/%E5%9F%BA%E4%BA%8Eipv6%E5%92%8Cdynv6%E7%9A%84%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/image.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">基于ipv6和dynv6的网站部署</div></div><div class="info-2"><div class="info-item-1">基于ipv6和dynv6的网站部署写在最前时效性本篇实际部署实际是在4月30日完成，中间鸽了好久到今天（5月7日）才写完，一些具体的细节可能记不太清了或者可能有些错误请批评指正、互相学习 优缺点使用公网ipv6进行访问，不需要申请ipv4备案等等，一般家用宽带都会有 但是电脑上必须开启TCP&#x2F;IPv6才能访问，不开启完全无法访问，一般电脑都支持，但是否开启不一定，手机访问通常不受影响 以下正文 前言前几天把NAS搞好了，这几天看了看外网访问。暂时常规的一级域名+ipv4+ICP备案的路子暂时走不通，于是打算换个路子，尝试一下ipv6+dynv6的方案。 弯路简单概述一下走过的弯路  使用cloudns+cloudfare，可以申请域名，但是只能是二级域名，使用cloudns免费用户不允许使用二级域名 使用路由器端口转发的方案，找了半天也没找到ipv6的防火墙 …   部署过程1. 获取IPv6地址在Ubuntu服务器上得到IPv6地址 1ip -6 addr show scope global | grep inet6 得到 12inet6 240e:840:0:768...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">SeaSparkle</div><div class="author-info-description">一个分享IT后端技术、房东的猫音乐与旅行见闻的个人博客</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/shiguoqing99/shiguoqing99.github.io"><i class="fab fa-github"></i><span>Github仓库</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AC%E7%BD%91%E5%9C%B0%E5%9D%80%EF%BC%88%E5%8A%A0%E5%AF%86%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">公网地址（加密）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%B7%E5%85%A5%E7%B3%BB%E7%BB%9F%E5%90%8E%EF%BC%8C%E8%BF%9E%E6%8E%A5%E9%BB%98%E8%AE%A4WiFi"><span class="toc-number">3.</span> <span class="toc-text">刷入系统后，连接默认WiFi</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5"><span class="toc-number">4.</span> <span class="toc-text">SSH远程连接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E4%B8%BB%E6%9C%BA%E7%9A%84-SSH-%E5%AF%86%E9%92%A5%E5%8F%91%E7%94%9F%E4%BA%86%E5%8F%98%E5%8C%96%EF%BC%8CSSH-%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%87%BA%E4%BA%8E%E5%AE%89%E5%85%A8%E8%80%83%E8%99%91%E9%98%BB%E6%AD%A2%E4%BA%86%E8%BF%9E%E6%8E%A5%EF%BC%8C%E4%BD%BF%E7%94%A8%E4%BB%A5%E4%B8%8B%E5%91%BD%E4%BB%A4%E9%87%8D%E7%BD%AE%E5%AF%86%E9%92%A5"><span class="toc-number">4.1.</span> <span class="toc-text">远程主机的 SSH 密钥发生了变化，SSH 客户端出于安全考虑阻止了连接，使用以下命令重置密钥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95"><span class="toc-number">4.2.</span> <span class="toc-text">免密登录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-number">5.</span> <span class="toc-text">0. 共享文件夹</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%87%E6%8D%A2%E9%98%BF%E9%87%8C%E6%BA%90"><span class="toc-number">5.1.</span> <span class="toc-text">切换阿里源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Samba%EF%BC%88%E5%A6%82%E6%9C%AA%E5%AE%89%E8%A3%85%EF%BC%89"><span class="toc-number">5.2.</span> <span class="toc-text">安装Samba（如未安装）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%BE%91Samba%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">5.3.</span> <span class="toc-text">编辑Samba配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B1%E4%BA%ABpi%E7%9A%84home%E7%9B%AE%E5%BD%95"><span class="toc-number">5.4.</span> <span class="toc-text">共享pi的home目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AESamba%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81"><span class="toc-number">5.5.</span> <span class="toc-text">设置Samba用户密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-home-pi%E7%9B%AE%E5%BD%95%E6%9D%83%E9%99%90"><span class="toc-number">5.6.</span> <span class="toc-text">修改&#x2F;home&#x2F;pi目录权限</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%B0%86%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E5%A4%8D%E5%88%B6%E5%88%B0%E6%A0%91%E8%8E%93%E6%B4%BE"><span class="toc-number">6.</span> <span class="toc-text">1. 将项目文件复制到树莓派</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%94%9F%E6%88%90%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6"><span class="toc-number">7.</span> <span class="toc-text">2. 生成可执行文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%BF%85%E8%A6%81%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-number">7.1.</span> <span class="toc-text">安装必要开发环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8CQt%E7%A8%8B%E5%BA%8F%E5%AE%8C%E6%95%B4%E5%91%BD%E4%BB%A4"><span class="toc-number">7.2.</span> <span class="toc-text">编译运行Qt程序完整命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%85%8D%E7%BD%AE%E7%BD%91%E7%BB%9C"><span class="toc-number">8.</span> <span class="toc-text">3. 配置网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E6%97%A7%E8%BF%9E%E6%8E%A5"><span class="toc-number">8.1.</span> <span class="toc-text">删除旧连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E6%96%B0%E8%BF%9E%E6%8E%A5%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%AF%86%E7%A0%81"><span class="toc-number">8.2.</span> <span class="toc-text">重新连接并保存密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A54G%E6%A8%A1%E5%9D%97%EF%BC%8C%E6%8F%92%E5%85%A5%E6%89%8B%E6%9C%BA%E5%8D%A1%EF%BC%8C%E6%AD%A4%E6%97%B6%E4%BC%9A%E6%96%AD%E5%BC%80ssh%EF%BC%88%E9%BB%98%E8%AE%A4%E8%B5%B0usb%E8%B7%AF%E7%94%B1%EF%BC%89"><span class="toc-number">8.3.</span> <span class="toc-text">连接4G模块，插入手机卡，此时会断开ssh（默认走usb路由）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%91%E8%8E%93%E6%B4%BE%E6%9C%AC%E5%9C%B0%E7%BB%88%E7%AB%AF"><span class="toc-number">8.4.</span> <span class="toc-text">树莓派本地终端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BF%80%E6%B4%BB%E6%89%8B%E6%9C%BA%E5%8D%A1"><span class="toc-number">8.5.</span> <span class="toc-text">激活手机卡</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%B5%8B%E8%AF%95"><span class="toc-number">9.</span> <span class="toc-text">4. 测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#WiFi%E6%B5%8B%E8%AF%95"><span class="toc-number">9.1.</span> <span class="toc-text">WiFi测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E9%87%8F%E6%B5%8B%E8%AF%95"><span class="toc-number">9.2.</span> <span class="toc-text">流量测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF"><span class="toc-number">10.</span> <span class="toc-text">5. 开机自启</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%90%8E%E8%AE%B0"><span class="toc-number">11.</span> <span class="toc-text">6. 后记</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/05/16/%E5%9F%BA%E4%BA%8E%E6%A0%91%E8%8E%93%E6%B4%BE5%E7%9A%844G%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85%E6%B5%8B%E8%AF%95/" title="基于树莓派5的4G模块安装测试"><img src="/img/code/%E5%9F%BA%E4%BA%8E%E6%A0%91%E8%8E%93%E6%B4%BE5%E7%9A%844G%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85%E6%B5%8B%E8%AF%95/image.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于树莓派5的4G模块安装测试"/></a><div class="content"><a class="title" href="/2026/05/16/%E5%9F%BA%E4%BA%8E%E6%A0%91%E8%8E%93%E6%B4%BE5%E7%9A%844G%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85%E6%B5%8B%E8%AF%95/" title="基于树莓派5的4G模块安装测试">基于树莓派5的4G模块安装测试</a><time datetime="2026-05-15T16:00:00.000Z" title="发表于 2026-05-16 00:00:00">2026-05-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/05/07/%E5%9F%BA%E4%BA%8Eipv6%E5%92%8Cdynv6%E7%9A%84%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/" title="基于ipv6和dynv6的网站部署"><img src="/img/code/%E5%9F%BA%E4%BA%8Eipv6%E5%92%8Cdynv6%E7%9A%84%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/image.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于ipv6和dynv6的网站部署"/></a><div class="content"><a class="title" href="/2026/05/07/%E5%9F%BA%E4%BA%8Eipv6%E5%92%8Cdynv6%E7%9A%84%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2/" title="基于ipv6和dynv6的网站部署">基于ipv6和dynv6的网站部署</a><time datetime="2026-05-06T16:00:00.000Z" title="发表于 2026-05-07 00:00:00">2026-05-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/04/30/%E6%88%BF%E4%B8%9C%E7%9A%84%E7%8C%AB%E7%BE%8E%E5%9B%BE%E5%88%86%E4%BA%AB260406/" title="房东的猫美图分享260404"><img src="/img/fddm/%E6%88%BF%E4%B8%9C%E7%9A%84%E7%8C%AB%E7%BE%8E%E5%9B%BE%E5%88%86%E4%BA%AB260406/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="房东的猫美图分享260404"/></a><div class="content"><a class="title" href="/2026/04/30/%E6%88%BF%E4%B8%9C%E7%9A%84%E7%8C%AB%E7%BE%8E%E5%9B%BE%E5%88%86%E4%BA%AB260406/" title="房东的猫美图分享260404">房东的猫美图分享260404</a><time datetime="2026-04-29T16:00:00.000Z" title="发表于 2026-04-30 00:00:00">2026-04-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/04/30/%E6%88%BF%E4%B8%9C%E7%9A%84%E7%8C%AB%E7%BE%8E%E5%9B%BE%E5%88%86%E4%BA%AB260430/" title="房东的猫美图分享260428"><img src="/img/fddm/%E6%88%BF%E4%B8%9C%E7%9A%84%E7%8C%AB%E7%BE%8E%E5%9B%BE%E5%88%86%E4%BA%AB260428/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="房东的猫美图分享260428"/></a><div class="content"><a class="title" href="/2026/04/30/%E6%88%BF%E4%B8%9C%E7%9A%84%E7%8C%AB%E7%BE%8E%E5%9B%BE%E5%88%86%E4%BA%AB260430/" title="房东的猫美图分享260428">房东的猫美图分享260428</a><time datetime="2026-04-29T16:00:00.000Z" title="发表于 2026-04-30 00:00:00">2026-04-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/04/17/NAS%E9%87%8D%E7%BD%AE%E4%B8%8E%E9%83%A8%E7%BD%B2/" title="NAS重置与部署"><img src="/img/code/NAS%E9%87%8D%E7%BD%AE%E4%B8%8E%E9%83%A8%E7%BD%B2/image.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="NAS重置与部署"/></a><div class="content"><a class="title" href="/2026/04/17/NAS%E9%87%8D%E7%BD%AE%E4%B8%8E%E9%83%A8%E7%BD%B2/" title="NAS重置与部署">NAS重置与部署</a><time datetime="2026-04-16T16:00:00.000Z" title="发表于 2026-04-17 00:00:00">2026-04-17</time></div></div></div></div></div></div></main></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button></div><div id="rightside-config-show"><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
